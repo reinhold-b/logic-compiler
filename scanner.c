@@ -778,7 +778,7 @@ case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
 #line 9 "scanner.l"
-;  /* Ignore spaces, tabs, and newlines */
+;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP

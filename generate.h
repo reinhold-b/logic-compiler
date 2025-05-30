@@ -9,7 +9,7 @@ void generateCode(Node* tree);
 void printNode(Node* node);
 const char* typeToString(SymTableType type);
 const char* operatorToSymbol(char* operatorString);
-void printDeclarations(FILE* file); 
+void printDeclarations(FILE* file);
 void printArgsReversed(Node* arg, FILE* file, int* first);
 
 #endif

@@ -2,14 +2,15 @@
 
 
 
-DECLARE PREDICATE P1 : 0
-DECLARE PREDICATE P2 : 1
-DECLARE PREDICATE P3 : 3
-DECLARE FUNCTION c : 0
-DECLARE FUNCTION f : 1
-DECLARE FUNCTION g : 2
-DECLARE VARIABLE x : int
-DECLARE VARIABLE y : int
-DECLARE VARIABLE z : int
+DECLARE Predicate P1 : 0;
+DECLARE Predicate P2 : 1;
+DECLARE Predicate P3 : 3;
+DECLARE Function c : 0;
+DECLARE Function f : 1;
+DECLARE Function g : 2;
+DECLARE Variable x : int;
+DECLARE Variable y : int;
+DECLARE Variable z : int;
 
-ALL[x]((((P1()) | (~P2(x))) | (~P2(1))) | (EXIST[z](ALL[y](P3(c,f(z),g(y,13))))));
+
+((EXIST[x]((P1() | ~(P2(x)))) | ~(P2(1))) | EXIST[z](ALL[y](P3(c, f(z), g(13, y)))));

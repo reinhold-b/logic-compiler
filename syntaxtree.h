@@ -3,7 +3,6 @@
 
 #include "symboltable.h"
 
-// Node type constants
 #define NODE_UNARY 1
 #define NODE_BINARY 2
 #define NODE_PREDICATE 3
@@ -13,9 +12,9 @@
 #define NODE_TRUE 7
 #define NODE_FALSE 8
 #define NODE_NUMBER 9
-#define NODE_ARG 10
+#define NODE_SIMPLE_ARGUMENT 10
+#define NODE_FUNCTION_ARGUMENT 11
 
-// Macros to create different types of nodes
 #define mkUnaryNode(child) makeNode(NODE_UNARY, child)
 #define mkBinaryNode(left, right, operator) makeNode(NODE_BINARY, left, right, operator)
 #define mkPredicateNode(entry, arguments) makeNode(NODE_PREDICATE, entry, arguments)
@@ -25,13 +24,13 @@
 #define mkTrueNode() makeNode(NODE_TRUE)
 #define mkFalseNode() makeNode(NODE_FALSE)
 #define mkNumberNode(value) makeNode(NODE_NUMBER, value)
-#define mkArgNode(value, arguments) makeNode(NODE_ARG, value, arguments, NULL)
-#define mkFcArgNode(func, next) makeNode(NODE_ARG, NULL, next, func)
 
-// Forward declarations
+#define mkArgNode(sym_entry, next_arg_node) makeNode(NODE_SIMPLE_ARGUMENT, sym_entry, next_arg_node)
+#define mkFcArgNode(func_node, next_arg_node) makeNode(NODE_FUNCTION_ARGUMENT, func_node, next_arg_node)
+
+
 typedef struct Node Node;
 typedef struct SyntaxTree SyntaxTree;
-
 
 struct Node {
     int nodeType;
@@ -39,7 +38,7 @@ struct Node {
         struct {
             Node* child;
         } unaryType;
-       struct {
+        struct {
             Node* left;
             Node* right;
             char* operator;
@@ -62,12 +61,17 @@ struct Node {
         struct {
             int value;
         } numberType;
+
         struct {
             SymTableEntry* symEntry;
             Node* nextArg;
-            Node* value;
-        } argumentType;
-        // trueType and falseType can stay empty
+        } simpleArgumentType;
+
+        struct {
+            Node* functionCallNode;
+            Node* nextArg;
+        } functionArgumentType;
+
     } types;
 };
 
@@ -75,10 +79,9 @@ struct SyntaxTree {
     Node* root;
 };
 
-// Function declarations
 Node* makeNode(int nodeType, ...);
 void printTree(Node* node, int recursionLevel);
 int countArgumentsOfNode(Node* node);
 int traverse(Node* node);
 
-#endif // SYNTAXTREE_H
+#endif

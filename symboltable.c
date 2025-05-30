@@ -46,7 +46,6 @@ void printTable() {
 void removeSymEntry(char* identifier) {
     int holeAdr = -1;
 
-    // Find the element
     for (int i = 0; i < tableAdr; i++) {
         if (strcmp(table.entries[i].identifier, identifier) == 0) {
             holeAdr = i;
@@ -56,10 +55,8 @@ void removeSymEntry(char* identifier) {
 
     if (holeAdr == -1) return
 
-    // Free allocated memory
     free(table.entries[holeAdr].identifier);
 
-    // Shift entries left
     for (int i = holeAdr; i < tableAdr - 1; i++) {
         table.entries[i] = table.entries[i + 1];
     }
@@ -79,8 +76,7 @@ SymTableEntry* getSymEntry(char* id) {
 }
 
 void clearSymbolTable() {
-    // If addSymEntry allocates memory for strings, you need to free it here
-    tableAdr = 0; // Reset the index to clear the table
+    tableAdr = 0;
     fprintf(stderr, "SYT: Symbol table cleared.\n");
 }
 

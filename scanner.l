@@ -6,7 +6,7 @@
 %option noyywrap
 
 %%
-[ \t\n]+    ;  /* Ignore spaces, tabs, and newlines */
+[ \t\n]+    ;
 \/\*.*?\*\/ {fprintf(stderr, "COMMENT: %s", yytext);};
 "DECLARE"	{fprintf(stderr, "KEY: DECLARE\n"); return DECLARE;};
 "PREDICATE"	{fprintf(stderr, "KEY: PREDICATE\n"); return PREDICATE;};
